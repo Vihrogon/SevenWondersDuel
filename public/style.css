@@ -1,43 +1,20 @@
-/**
- * Fix user-agent
- */
-
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+body {
+    width: 1200px;
+    height: 800px;
+    margin: 0;
+    padding: 0;
+    position: relative;
 }
 
-/**
- * Canvas
- */
-
-.whiteboard {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
+.card {
+    width: 80px;
+    height: 120px;
+    border: 2px solid black;
+    border-radius: 8px;
+    position: absolute;
+    padding: 8px;
 }
-
-.colors {
-  position: fixed;
-}
-
-.color {
-  display: inline-block;
-  height: 48px;
-  width: 48px;
-}
-
-.color.black { background-color: black; }
-.color.red { background-color: red; }
-.color.green { background-color: green; }
-.color.blue { background-color: blue; }
-.color.yellow { background-color: yellow; }
