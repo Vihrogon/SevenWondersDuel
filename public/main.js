@@ -57,8 +57,8 @@
     socket.on('moving', function(data) {
         movingCard.id = data.id;
         if (data.id) {
-            cards[data.id].style.left = data.x;
-            cards[data.id].style.top = data.y;
+            cards[data.id].style.left = data.x + 'px';
+            cards[data.id].style.top = data.y + 'px';
         }
     });
 
