@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 app.use(express.static(__dirname + '/public'));
 
 function onConnection(socket){
-  socket.on('moving', (data) => socket.broadcast.emit('moving', data));
+  socket.on('monopoly', (data) => socket.broadcast.emit('monopoly', data));
 }
 
 io.on('connection', onConnection);

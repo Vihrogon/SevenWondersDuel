@@ -2,14 +2,809 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Socket.IO whiteboard</title>
+    <title>NOT monopoly</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="game">
 
-<div id="card_0" class="card">text0</div>
-<div id="card_1" class="card">text1</div>
+        <div id="board">
+            <div class="tile"><span>паркинг</span></div>
+            <div class="tile"><h4 class="red">улица сан стефано</h4></div>
+            <div class="tile"><span>шанс</span></div>
+            <div class="tile"><h4 class="red">улица шипка</h4></div>
+            <div class="tile"><h4 class="red">улица оборище</h4></div>
+            <div class="tile"><h4 class="black">гара варна</h4></div>
+            <div class="tile"><h4 class="yellow">булевард дондуков</h4></div>
+            <div class="tile"><h4 class="yellow">патриарх евтимий</h4></div>
+            <div class="tile"><h4 class="gray">ВИК</h4></div>
+            <div class="tile"><h4 class="yellow">васил левски</h4></div>
+            <div class="tile"><span>отиваш в затвора</span></div>
+            <div class="tile"><h4 class="orange">булевард българия</h4></div>
+            <div class="tile wide" style="border-top: 1px solid black;"></div>
+            <div class="tile"><h4 class="green">георги раковски</h4></div>
+            <div class="tile"><h4 class="orange">орлов мост</h4></div>
+            <div class="tile wide"></div>
+            <div class="tile"><h4 class="green">граф игнатиев</h4></div>
+            <div class="tile"><span>трезор</span></div>
+            <div class="tile wide"></div>
+            <div class="tile"><span>трезор</span></div>
+            <div class="tile"><h4 class="orange">евлоги георгиев</h4></div>
+            <div class="tile wide"></div>
+            <div class="tile"><h4 class="green">цар освободител</h4></div>
+            <div class="tile"><h4 class="black">гара пловдив</h4></div>
+            <div class="tile wide"></div>
+            <div class="tile"><h4 class="black">гара бургас</h4></div>
+            <div class="tile"><h4 class="violet">христо ботев</h4></div>
+            <div class="tile wide"></div>
+            <div class="tile"><span>шанс</span></div>
+            <div class="tile"><h4 class="violet">улица пиротска</h4></div>
+            <div class="tile wide"></div>
+            <div class="tile"><h4 class="navy">булевард витоша</h4></div>
+            <div class="tile"><h4 class="gray">НЕК</h4></div>
+            <div class="tile wide"></div>
+            <div class="tile"><span>супер данък</span></div>
+            <div class="tile"><h4 class="violet">площад македония</h4></div>
+            <div class="tile wide" style="border-bottom: 1px solid black;"></div>
+            <div class="tile"><h4 class="navy">бояна</h4></div>
+            <div class="tile"><span>затвор</span></div>
+            <div class="tile"><h4 class="blue">лъвов мост</h4></div>
+            <div class="tile"><h4 class="blue">булевард сливница</h4></div>
+            <div class="tile"><span>шанс</span></div>
+            <div class="tile"><h4 class="blue">улица опълческа</h4></div>
+            <div class="tile"><h4 class="black">гара софия</h4></div>
+            <div class="tile"><span>данък печалба</span></div>
+            <div class="tile"><h4 class="brown">цариградско шосе</h4></div>
+            <div class="tile"><span>трезор</span></div>
+            <div class="tile"><h4 class="brown">ботевградско шосе</h4></div>
+            <div class="tile"><span>старт</span></div>
+        </div>
 
+        <div class="zone blue" style="top: 0px;"></div>
+        <div class="zone red" style="top: 225px;"></div>
+        <div class="zone green" style="top: 450px;"></div>
+        <div class="zone yellow" style="top: 675px;"></div>
+
+        <div id="dice" style="top: 300px; left: 300px; font-size: 60px;">ЗАР</div>
+        <div id="chance" style="top: 400px; left: 300px;">ШАНС</div>
+        <div id="vault" style="top: 500px; left: 300px;">ТРЕЗОР</div>
+
+        <div id="card_0" class="card property" style="display: none;">
+            <h4 class="">име</h4>
+            <span class="name price"></span><span class="value">0</span>
+            <span class="name rent0"></span><span class="value">0</span>
+            <span class="name rent1"></span><span class="value">0</span>
+            <span class="name rent2"></span><span class="value">0</span>
+            <span class="name rent3"></span><span class="value">0</span>
+            <span class="name rent4"></span><span class="value">0</span>
+            <span class="name rent5"></span><span class="value">0</span>
+            <span class="name build"></span><span class="value">0</span>
+        </div>
+
+        <div id="card_1" class="card property" style="left: 80px; top: 80px;">
+            <h4 class="brown">ботевградско шосе</h4>
+            <span class="name price"></span><span class="value">60</span>
+            <span class="name rent0"></span><span class="value">2</span>
+            <span class="name rent1"></span><span class="value">10</span>
+            <span class="name rent2"></span><span class="value">30</span>
+            <span class="name rent3"></span><span class="value">90</span>
+            <span class="name rent4"></span><span class="value">160</span>
+            <span class="name rent5"></span><span class="value">250</span>
+            <span class="name build"></span><span class="value">50</span>
+        </div>
+
+        <div id="card_2" class="card property" style="left: 80px; top: 120px;">
+            <h4 class="brown">цариградско шосе</h4>
+            <span class="name price"></span><span class="value">60</span>
+            <span class="name rent0"></span><span class="value">4</span>
+            <span class="name rent1"></span><span class="value">20</span>
+            <span class="name rent2"></span><span class="value">60</span>
+            <span class="name rent3"></span><span class="value">180</span>
+            <span class="name rent4"></span><span class="value">320</span>
+            <span class="name rent5"></span><span class="value">450</span>
+            <span class="name build"></span><span class="value">50</span>
+        </div>
+
+        <div id="card_3" class="card property" style="left: 160px; top: 80px;">
+            <h4 class="blue">улица опълческа</h4>
+            <span class="name price"></span><span class="value">100</span>
+            <span class="name rent0"></span><span class="value">6</span>
+            <span class="name rent1"></span><span class="value">30</span>
+            <span class="name rent2"></span><span class="value">90</span>
+            <span class="name rent3"></span><span class="value">270</span>
+            <span class="name rent4"></span><span class="value">400</span>
+            <span class="name rent5"></span><span class="value">550</span>
+            <span class="name build"></span><span class="value">50</span>
+        </div>
+
+        <div id="card_4" class="card property" style="left: 160px; top: 120px;">
+            <h4 class="blue">булевард сливница</h4>
+            <span class="name price"></span><span class="value">100</span>
+            <span class="name rent0"></span><span class="value">6</span>
+            <span class="name rent1"></span><span class="value">30</span>
+            <span class="name rent2"></span><span class="value">90</span>
+            <span class="name rent3"></span><span class="value">270</span>
+            <span class="name rent4"></span><span class="value">400</span>
+            <span class="name rent5"></span><span class="value">550</span>
+            <span class="name build"></span><span class="value">50</span>
+        </div>
+
+        <div id="card_5" class="card property" style="left: 160px; top: 160px;">
+            <h4 class="blue">лъвов мост</h4>
+            <span class="name price"></span><span class="value">120</span>
+            <span class="name rent0"></span><span class="value">8</span>
+            <span class="name rent1"></span><span class="value">40</span>
+            <span class="name rent2"></span><span class="value">100</span>
+            <span class="name rent3"></span><span class="value">300</span>
+            <span class="name rent4"></span><span class="value">450</span>
+            <span class="name rent5"></span><span class="value">600</span>
+            <span class="name build"></span><span class="value">50</span>
+        </div>
+
+        <div id="card_6" class="card property" style="left: 240px; top: 80px;">
+            <h4 class="violet">площад македония</h4>
+            <span class="name price"></span><span class="value">140</span>
+            <span class="name rent0"></span><span class="value">10</span>
+            <span class="name rent1"></span><span class="value">50</span>
+            <span class="name rent2"></span><span class="value">150</span>
+            <span class="name rent3"></span><span class="value">450</span>
+            <span class="name rent4"></span><span class="value">625</span>
+            <span class="name rent5"></span><span class="value">750</span>
+            <span class="name build"></span><span class="value">100</span>
+        </div>
+
+        <div id="card_7" class="card property" style="left: 240px; top: 120px;">
+            <h4 class="violet">улица пиротска</h4>
+            <span class="name price"></span><span class="value">140</span>
+            <span class="name rent0"></span><span class="value">10</span>
+            <span class="name rent1"></span><span class="value">50</span>
+            <span class="name rent2"></span><span class="value">150</span>
+            <span class="name rent3"></span><span class="value">450</span>
+            <span class="name rent4"></span><span class="value">625</span>
+            <span class="name rent5"></span><span class="value">750</span>
+            <span class="name build"></span><span class="value">100</span>
+        </div>
+
+        <div id="card_8" class="card property" style="left: 240px; top: 160px;">
+            <h4 class="violet">булевард христо ботев</h4>
+            <span class="name price"></span><span class="value">160</span>
+            <span class="name rent0"></span><span class="value">12</span>
+            <span class="name rent1"></span><span class="value">60</span>
+            <span class="name rent2"></span><span class="value">180</span>
+            <span class="name rent3"></span><span class="value">500</span>
+            <span class="name rent4"></span><span class="value">700</span>
+            <span class="name rent5"></span><span class="value">900</span>
+            <span class="name build"></span><span class="value">100</span>
+        </div>
+
+        <div id="card_9" class="card property" style="left: 320px; top: 80px;">
+            <h4 class="orange">евлоги георгиев</h4>
+            <span class="name price"></span><span class="value">180</span>
+            <span class="name rent0"></span><span class="value">14</span>
+            <span class="name rent1"></span><span class="value">70</span>
+            <span class="name rent2"></span><span class="value">200</span>
+            <span class="name rent3"></span><span class="value">550</span>
+            <span class="name rent4"></span><span class="value">750</span>
+            <span class="name rent5"></span><span class="value">950</span>
+            <span class="name build"></span><span class="value">100</span>
+        </div>
+
+        <div id="card_10" class="card property" style="left: 320px; top: 120px;">
+            <h4 class="orange">орлов мост</h4>
+            <span class="name price"></span><span class="value">180</span>
+            <span class="name rent0"></span><span class="value">14</span>
+            <span class="name rent1"></span><span class="value">70</span>
+            <span class="name rent2"></span><span class="value">200</span>
+            <span class="name rent3"></span><span class="value">550</span>
+            <span class="name rent4"></span><span class="value">750</span>
+            <span class="name rent5"></span><span class="value">950</span>
+            <span class="name build"></span><span class="value">100</span>
+        </div>
+
+        <div id="card_11" class="card property" style="left: 320px; top: 160px;">
+            <h4 class="orange">булевард българия</h4>
+            <span class="name price"></span><span class="value">200</span>
+            <span class="name rent0"></span><span class="value">16</span>
+            <span class="name rent1"></span><span class="value">80</span>
+            <span class="name rent2"></span><span class="value">220</span>
+            <span class="name rent3"></span><span class="value">600</span>
+            <span class="name rent4"></span><span class="value">800</span>
+            <span class="name rent5"></span><span class="value">1000</span>
+            <span class="name build"></span><span class="value">100</span>
+        </div>
+
+        <div id="card_12" class="card property" style="left: 400px; top: 80px;">
+            <h4 class="red">улица сан стефано</h4>
+            <span class="name price"></span><span class="value">220</span>
+            <span class="name rent0"></span><span class="value">18</span>
+            <span class="name rent1"></span><span class="value">90</span>
+            <span class="name rent2"></span><span class="value">250</span>
+            <span class="name rent3"></span><span class="value">700</span>
+            <span class="name rent4"></span><span class="value">875</span>
+            <span class="name rent5"></span><span class="value">1050</span>
+            <span class="name build"></span><span class="value">150</span>
+        </div>
+
+        <div id="card_13" class="card property" style="left: 400px; top: 120px;">
+            <h4 class="red">улица шипка</h4>
+            <span class="name price"></span><span class="value">220</span>
+            <span class="name rent0"></span><span class="value">18</span>
+            <span class="name rent1"></span><span class="value">90</span>
+            <span class="name rent2"></span><span class="value">250</span>
+            <span class="name rent3"></span><span class="value">700</span>
+            <span class="name rent4"></span><span class="value">875</span>
+            <span class="name rent5"></span><span class="value">1050</span>
+            <span class="name build"></span><span class="value">150</span>
+        </div>
+
+        <div id="card_14" class="card property" style="left: 400px; top: 160px;">
+            <h4 class="red">улица оборище</h4>
+            <span class="name price"></span><span class="value">240</span>
+            <span class="name rent0"></span><span class="value">20</span>
+            <span class="name rent1"></span><span class="value">100</span>
+            <span class="name rent2"></span><span class="value">300</span>
+            <span class="name rent3"></span><span class="value">750</span>
+            <span class="name rent4"></span><span class="value">925</span>
+            <span class="name rent5"></span><span class="value">1100</span>
+            <span class="name build"></span><span class="value">150</span>
+        </div>
+
+        <div id="card_15" class="card property" style="left: 480px; top: 80px;">
+            <h4 class="yellow">булевард дондуков</h4>
+            <span class="name price"></span><span class="value">260</span>
+            <span class="name rent0"></span><span class="value">22</span>
+            <span class="name rent1"></span><span class="value">110</span>
+            <span class="name rent2"></span><span class="value">330</span>
+            <span class="name rent3"></span><span class="value">800</span>
+            <span class="name rent4"></span><span class="value">975</span>
+            <span class="name rent5"></span><span class="value">1150</span>
+            <span class="name build"></span><span class="value">150</span>
+        </div>
+
+        <div id="card_16" class="card property" style="left: 480px; top: 120px;">
+            <h4 class="yellow">патриарх евтимий</h4>
+            <span class="name price"></span><span class="value">260</span>
+            <span class="name rent0"></span><span class="value">22</span>
+            <span class="name rent1"></span><span class="value">110</span>
+            <span class="name rent2"></span><span class="value">330</span>
+            <span class="name rent3"></span><span class="value">800</span>
+            <span class="name rent4"></span><span class="value">975</span>
+            <span class="name rent5"></span><span class="value">1150</span>
+            <span class="name build"></span><span class="value">150</span>
+        </div>
+
+        <div id="card_17" class="card property" style="left: 480px; top: 160px;">
+            <h4 class="yellow">васил левски</h4>
+            <span class="name price"></span><span class="value">280</span>
+            <span class="name rent0"></span><span class="value">24</span>
+            <span class="name rent1"></span><span class="value">120</span>
+            <span class="name rent2"></span><span class="value">360</span>
+            <span class="name rent3"></span><span class="value">850</span>
+            <span class="name rent4"></span><span class="value">1025</span>
+            <span class="name rent5"></span><span class="value">1200</span>
+            <span class="name build"></span><span class="value">150</span>
+        </div>
+
+        <div id="card_18" class="card property" style="left: 560px; top: 80px;">
+            <h4 class="green">георги раковски</h4>
+            <span class="name price"></span><span class="value">300</span>
+            <span class="name rent0"></span><span class="value">26</span>
+            <span class="name rent1"></span><span class="value">130</span>
+            <span class="name rent2"></span><span class="value">390</span>
+            <span class="name rent3"></span><span class="value">900</span>
+            <span class="name rent4"></span><span class="value">1100</span>
+            <span class="name rent5"></span><span class="value">1275</span>
+            <span class="name build"></span><span class="value">200</span>
+        </div>
+
+        <div id="card_19" class="card property" style="left: 560px; top: 120px;">
+            <h4 class="green">граф игнатиев</h4>
+            <span class="name price"></span><span class="value">300</span>
+            <span class="name rent0"></span><span class="value">26</span>
+            <span class="name rent1"></span><span class="value">130</span>
+            <span class="name rent2"></span><span class="value">390</span>
+            <span class="name rent3"></span><span class="value">900</span>
+            <span class="name rent4"></span><span class="value">1100</span>
+            <span class="name rent5"></span><span class="value">1275</span>
+            <span class="name build"></span><span class="value">200</span>
+        </div>
+
+        <div id="card_20" class="card property" style="left: 560px; top: 160px;">
+            <h4 class="green">цар освободител</h4>
+            <span class="name price"></span><span class="value">320</span>
+            <span class="name rent0"></span><span class="value">28</span>
+            <span class="name rent1"></span><span class="value">150</span>
+            <span class="name rent2"></span><span class="value">450</span>
+            <span class="name rent3"></span><span class="value">1000</span>
+            <span class="name rent4"></span><span class="value">1200</span>
+            <span class="name rent5"></span><span class="value">1400</span>
+            <span class="name build"></span><span class="value">200</span>
+        </div>
+
+        <div id="card_21" class="card property" style="left: 640px; top: 80px;">
+            <h4 class="navy">булевард витоша</h4>
+            <span class="name price"></span><span class="value">350</span>
+            <span class="name rent0"></span><span class="value">35</span>
+            <span class="name rent1"></span><span class="value">175</span>
+            <span class="name rent2"></span><span class="value">500</span>
+            <span class="name rent3"></span><span class="value">1100</span>
+            <span class="name rent4"></span><span class="value">1300</span>
+            <span class="name rent5"></span><span class="value">1500</span>
+            <span class="name build"></span><span class="value">200</span>
+        </div>
+
+        <div id="card_22" class="card property" style="left: 640px; top: 120px;">
+            <h4 class="navy">бояна</h4>
+            <span class="name price"></span><span class="value">400</span>
+            <span class="name rent0"></span><span class="value">50</span>
+            <span class="name rent1"></span><span class="value">200</span>
+            <span class="name rent2"></span><span class="value">600</span>
+            <span class="name rent3"></span><span class="value">1400</span>
+            <span class="name rent4"></span><span class="value">1700</span>
+            <span class="name rent5"></span><span class="value">2000</span>
+            <span class="name build"></span><span class="value">200</span>
+        </div>
+
+        <div id="card_23" class="card property" style="left: 720px; top: 80px;">
+            <h4 class="black">гара софия</h4>
+            <span class="name price"></span><span class="value">200</span>
+            <span class="name rent1"></span><span class="value">25</span>
+            <span class="name rent2"></span><span class="value">50</span>
+            <span class="name rent3"></span><span class="value">100</span>
+            <span class="name rent4"></span><span class="value">200</span>
+        </div>
+
+        <div id="card_24" class="card property" style="left: 720px; top: 120px;">
+            <h4 class="black">гара пловдив</h4>
+            <span class="name price"></span><span class="value">200</span>
+            <span class="name rent1"></span><span class="value">25</span>
+            <span class="name rent2"></span><span class="value">50</span>
+            <span class="name rent3"></span><span class="value">100</span>
+            <span class="name rent4"></span><span class="value">200</span>
+        </div>
+
+        <div id="card_25" class="card property" style="left: 720px; top: 160px;">
+            <h4 class="black">гара варна</h4>
+            <span class="name price"></span><span class="value">200</span>
+            <span class="name rent1"></span><span class="value">25</span>
+            <span class="name rent2"></span><span class="value">50</span>
+            <span class="name rent3"></span><span class="value">100</span>
+            <span class="name rent4"></span><span class="value">200</span>
+        </div>
+
+        <div id="card_26" class="card property" style="left: 720px; top: 200px;">
+            <h4 class="black">гара бургас</h4>
+            <span class="name price"></span><span class="value">200</span>
+            <span class="name rent1"></span><span class="value">25</span>
+            <span class="name rent2"></span><span class="value">50</span>
+            <span class="name rent3"></span><span class="value">100</span>
+            <span class="name rent4"></span><span class="value">200</span>
+        </div>
+
+        <div id="card_27" class="card property" style="left: 720px; top: 240px;">
+            <h4 class="gray">НЕК</h4>
+            <span class="name price"></span><span class="value">150</span>
+            <span class="name rent0"></span><span class="value">X4</span>
+            <span class="name rent2"></span><span class="value">X10</span>
+        </div>
+
+        <div id="card_28" class="card property" style="left: 720px; top: 280px;">
+            <h4 class="gray">ВИК</h4>
+            <span class="name price"></span><span class="value">150</span>
+            <span class="name rent0"></span><span class="value">X4</span>
+            <span class="name rent2"></span><span class="value">X10</span>
+        </div>
+
+        <div id="card_29" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_30" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_31" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_32" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_33" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_34" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_35" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_36" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_37" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_38" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_39" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_40" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_41" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_42" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_43" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_44" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_45" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_46" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_47" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_48" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_49" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_50" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_51" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_52" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_53" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_54" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_55" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_56" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_57" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_58" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_59" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_60" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_61" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_62" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_63" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_64" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_65" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_66" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_67" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_68" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_69" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_70" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_71" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_72" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_73" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_74" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_75" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_76" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_77" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_78" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+        <div id="card_79" class="card money one" style="left: 85px; top: 320px;"><div class="value">1</div></div>
+
+        <div id="card_80" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_81" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_82" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_83" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_84" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_85" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_86" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_87" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_88" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_89" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_90" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_91" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_92" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_93" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_94" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_95" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_96" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_97" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_98" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_99" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_100" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_101" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_102" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_103" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_104" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_105" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_106" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_107" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_108" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_109" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_110" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_111" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_112" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_113" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_114" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_115" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_116" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_117" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_118" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_119" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_120" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_121" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_122" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_123" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_124" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_125" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_126" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_127" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_128" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+        <div id="card_129" class="card money five" style="left: 85px; top: 400px;"><div class="value">5</div></div>
+
+        <div id="card_130" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_131" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_132" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_133" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_134" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_135" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_136" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_137" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_138" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_139" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_140" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_141" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_142" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_143" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_144" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_145" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_146" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_147" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_148" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_149" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_150" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_151" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_152" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_153" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_154" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_155" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_156" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_157" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_158" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_159" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_160" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_161" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_162" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_163" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_164" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_165" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_166" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_167" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_168" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_169" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_170" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_171" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_172" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_173" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_174" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_175" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_176" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_177" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_178" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+        <div id="card_179" class="card money ten" style="left: 85px; top: 480px;"><div class="value">10</div></div>
+
+        <div id="card_180" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_181" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_182" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_183" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_184" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_185" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_186" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_187" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_188" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_189" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_190" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_191" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_192" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_193" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_194" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_195" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_196" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_197" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_198" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_199" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_200" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_201" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_202" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_203" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_204" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_205" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_206" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_207" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_208" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_209" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_210" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_211" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_212" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_213" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_214" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_215" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_216" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_217" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_218" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_219" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_220" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_221" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_222" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_223" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_224" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_225" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_226" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_227" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_228" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+        <div id="card_229" class="card money twenty" style="left: 85px; top: 560px;"><div class="value">20</div></div>
+
+        <div id="card_230" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_231" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_232" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_233" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_234" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_235" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_236" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_237" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_238" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_239" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_240" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_241" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_242" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_243" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_244" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_245" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_246" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_247" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_248" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_249" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_250" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_251" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_252" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_253" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_254" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_255" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_256" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_257" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_258" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_259" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_260" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_261" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_262" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_263" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_264" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_265" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_266" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_267" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_268" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_269" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_270" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_271" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_272" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_273" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_274" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_275" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_276" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_277" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_278" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+        <div id="card_279" class="card money fifty" style="left: 85px; top: 640px;"><div class="value">50</div></div>
+
+        <div id="card_280" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_281" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_282" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_283" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_284" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_285" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_286" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_287" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_288" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_289" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_290" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_291" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_292" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_293" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_294" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_295" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_296" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_297" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_298" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_299" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_300" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_301" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_302" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_303" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_304" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_305" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_306" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_307" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_308" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_309" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_310" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_311" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_312" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_313" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_314" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_315" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_316" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_317" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_318" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_319" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_320" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_321" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_322" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_323" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_324" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_325" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_326" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_327" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_328" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+        <div id="card_329" class="card money hundred" style="left: 85px; top: 720px;"><div class="value">100</div></div>
+
+        <div id="card_330" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_331" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_332" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_333" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_334" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_335" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_336" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_337" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_338" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_339" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_340" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_341" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_342" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_343" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_344" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_345" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_346" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_347" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_348" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_349" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_350" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_351" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_352" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_353" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_354" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_355" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_356" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_357" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_358" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_359" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_360" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_361" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_362" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_363" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_364" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_365" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_366" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_367" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_368" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_369" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_370" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_371" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_372" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_373" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_374" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_375" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_376" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_377" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_378" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+        <div id="card_379" class="card money fivehundred" style="left: 220px; top: 720px;"><div class="value">500</div></div>
+
+        <div id="card_380" class="card pawn blue" style="left: 900px; top: 80px;"></div>
+        <div id="card_381" class="card pawn red" style="left: 900px; top: 200px;"></div>
+        <div id="card_382" class="card pawn green" style="left: 900px; top: 400px;"></div>
+        <div id="card_383" class="card pawn yellow" style="left: 900px; top: 600px;"></div>
+
+        <div id="card_384" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_385" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_386" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_387" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_388" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_389" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_390" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_391" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_392" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_393" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_394" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_395" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_396" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_397" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_398" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_399" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_400" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_401" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_402" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_403" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_404" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_405" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_406" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_407" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_408" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_409" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_410" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_411" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_412" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_413" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_414" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+        <div id="card_415" class="card pawn house" style="left: 350px; top: 620px;">house</div>
+
+        <div id="card_416" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_417" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_418" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_419" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_420" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_421" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_422" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_423" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_424" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_425" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_426" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+        <div id="card_427" class="card pawn hotel" style="left: 400px; top: 620px;">hotel</div>
+
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/main.js"></script>
 </body>

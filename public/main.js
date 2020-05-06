@@ -3,64 +3,144 @@
 (function() {
 
     var socket = io();
-    
     let body = document.body;
-    let cards = [
-        document.querySelector('#card_0'),
-        document.querySelector('#card_1')
-    ];
+    let game = document.querySelector('#game');
+    let dice = document.querySelector('#dice');
+    let chance = document.querySelector('#chance');
+    let vault = document.querySelector('#vault');
+    let cards = [];
+    for (let i = 0; i <= 427; i++) {
+        cards.push(document.querySelector('#card_' + i))
+    }
     let movingCard = {
+        type : 'move',
         id: null,
         x: null,
         y: null
     };
-    let offsetX = null;
-    let offsetY = null;
+    let pawn = false;
+    let chanceCards = [
+        'Банката ви изплаща дивидент от $50',
+        'Глоба за шофиране в нетрезво състояние $20',
+        'Платете училищни такси $150',
+        'Продължете до площад "МАКЕДОНИЯ". Ако преминете през "СТАРТ", получавате $200',
+        'продължете до "БОЯНА"',
+        'продължете до "СТАРТ"',
+        'Върнете се три места назад',
+        'Връщат ви заем за строителство. Получавате $150',
+        'Продължете до "ОБОРИЩЕ". Ако преминете през "СТАРТ", получавате $200',
+        'Отивате директно в затвора',
+        'Продължавате до "ПЛОВДИВ". Ако преминете през "СТАРТ", получавате $200',
+        'Печелите турнир по решаване на кръстословици. Получавате $100',
+        'Основен ремонт на всичките ви сгради. За всяка къща платете по $25. За всеки хотел платете по $100',
+        'Плащате за ремонт на улици и пътища. $40 за всяка къща. $115 за всеки хотел',
+        'Глоба за превишена скорост $15',
+        'Излезте от затвора без пари'];
+    let vaultCards = [
+        'Такса за лекар. Платете $50',
+        'Имате рожден ден. Получавате по $10 от всеки играч',
+        'Платете глоба от $10 или изтеглете "ШАНС"',
+        'Получавате $25 лихва по облигации',
+        'Върнете се на "БОТЕВГРАДСКО ШОСЕ"',
+        'Продължете до "СТАРТ"',
+        'Получавате наследство от $100',
+        'Олихвяване на влог. Получавате $100',
+        'Плащате $50 за застраховка живот',
+        'Отивате директно в затвора',
+        'Връщат ви надвзети данъци. Получавате $20',
+        'Печелите второ място в конкурс по красота. Получавате $10',
+        'банкова грешка във ваша полза. Получавате $200',
+        'Продавате акции и получавате $50',
+        'Платете $100 на болница',
+        'Излезте от затвора без пари'];
 
-    body.addEventListener('mousedown', function(e) {
+    dice.addEventListener('contextmenu', throttle(rightClick, 5000), false);
+    chance.addEventListener('contextmenu', throttle(rightClick, 5000), false);
+    vault.addEventListener('contextmenu', throttle(rightClick, 5000), false);
+
+    for (let card of cards) {
+        card.addEventListener('click', click, false);
+        game.addEventListener('mousemove', throttle(mouseMove, 20), false);
+    }
+
+    socket.on('monopoly', function(data) {
+        if (data.type == 'move') {
+            movingCard.id = data.id;
+            if (data.id) {
+                cards[data.id].style.left = data.x + 'px';
+                cards[data.id].style.top = data.y + 'px';
+            }
+        } else {
+            console.log(data);
+            rightClick(null, data);
+        }
+    });
+
+    function rightClick(e, data) {
+        if (e) {
+            e.preventDefault();
+            let temp;
+            if (e.target.id == 'dice') {
+                temp = rng(6, 1) + ' & ' + rng(6, 1);
+                dice.innerHTML = temp;
+                socket.emit('monopoly', {type: 'dice', value: temp});
+            } else if (e.target.id == 'chance') {
+                temp = chanceCards[rng(15, 0)];
+                chance.innerHTML = temp;
+                socket.emit('monopoly', {type: 'chance', value: temp});
+            } else if (e.target.id == 'vault') {
+                temp = vaultCards[rng(15, 0)];
+                vault.innerHTML = temp;
+                socket.emit('monopoly', {type: 'vault', value: temp});
+            }
+        }
+        if (data) {
+            if (data.type == 'dice') {
+                dice.innerHTML = data.value;
+            } else if (data.type == 'chance') {
+                chance.innerHTML = data.value;
+            } else if (data.type == 'vault') {
+                vault.innerHTML = data.value;
+            }
+        }
+    }
+
+    function rng(a, b) {
+        return Math.floor(Math.random() * a + b);
+    }
+
+    function click(e) {
+        e.preventDefault();
         if (!movingCard.id) {
-            e.preventDefault();
-            //console.log(e);
-            movingCard.id = e.target.id.slice(5);
-            offsetX = e.offsetX;
-            offsetY = e.offsetY;
-        }
-    }, false);
-    
-    body.addEventListener('mousemove', throttle(function(e) {
-        if (movingCard.id) {
-            e.preventDefault();
-            //console.log(e);
-            movingCard.x = e.clientX - offsetX;
-            movingCard.y = e.clientY - offsetY;
-            cards[movingCard.id].style.left = movingCard.x + 'px';
-            cards[movingCard.id].style.top = movingCard.y + 'px';
-
-            socket.emit('moving', movingCard);
-        }
-    }, 10), false);
-
-    body.addEventListener('mouseup', throttle(function(e) {
-        if (movingCard.id) {
-            e.preventDefault();
-            //console.log(e);
+            movingCard.id = this.id.slice(5);
+            if (e.target.classList && e.target.classList.contains('pawn')) {
+                pawn = true;
+            }
+        } else {
             movingCard.id = null;
             movingCard.x = null;
             movingCard.y = null;
-            offsetX = null;
-            offsetY = null;
-
-            socket.emit('moving', movingCard);
+            pawn = false;
         }
-    }, 10), false);
+        this.classList.toggle('selected');
+        socket.emit('monopoly', movingCard);
+    }
 
-    socket.on('moving', function(data) {
-        movingCard.id = data.id;
-        if (data.id) {
-            cards[data.id].style.left = data.x + 'px';
-            cards[data.id].style.top = data.y + 'px';
+    function mouseMove(e) {
+        if (movingCard.id) {
+            e.preventDefault();
+            movingCard.x = e.clientX - 40;
+            movingCard.y = e.clientY - 70;
+            if (pawn) {
+                movingCard.x = e.clientX - 25;
+                movingCard.y = e.clientY - 25;
+            }
+            cards[movingCard.id].style.left = movingCard.x + 'px';
+            cards[movingCard.id].style.top = movingCard.y + 'px';
+
+            socket.emit('monopoly', movingCard);
         }
-    });
+    }
 
     // limit the number of events per second
     function throttle(callback, delay) {
@@ -73,93 +153,6 @@
                 callback.apply(null, arguments);
             }
         };
-    }
-
-    var canvas = document.getElementsByClassName('whiteboard')[0];
-    var colors = document.getElementsByClassName('color');
-    var context = canvas.getContext('2d');
-
-    var current = {
-        color: 'black'
-    };
-    var drawing = false;
-
-    canvas.addEventListener('mousedown', onMouseDown, false);
-    canvas.addEventListener('mouseup', onMouseUp, false);
-    canvas.addEventListener('mouseout', onMouseUp, false);
-    canvas.addEventListener('mousemove', throttle(onMouseMove, 10), false);
-    
-    //Touch support for mobile devices
-    canvas.addEventListener('touchstart', onMouseDown, false);
-    canvas.addEventListener('touchend', onMouseUp, false);
-    canvas.addEventListener('touchcancel', onMouseUp, false);
-    canvas.addEventListener('touchmove', throttle(onMouseMove, 10), false);
-
-    for (var i = 0; i < colors.length; i++){
-        colors[i].addEventListener('click', onColorUpdate, false);
-    }
-
-    socket.on('drawing', onDrawingEvent);
-
-    window.addEventListener('resize', onResize, false);
-    onResize();
-
-
-    function drawLine(x0, y0, x1, y1, color, emit){
-        context.beginPath();
-        context.moveTo(x0, y0);
-        context.lineTo(x1, y1);
-        context.strokeStyle = color;
-        context.lineWidth = 2;
-        context.stroke();
-        context.closePath();
-
-        if (!emit) { return; }
-        var w = canvas.width;
-        var h = canvas.height;
-
-        socket.emit('drawing', {
-            x0: x0 / w,
-            y0: y0 / h,
-            x1: x1 / w,
-            y1: y1 / h,
-            color: color
-        });
-    }
-
-    function onMouseDown(e){
-        drawing = true;
-        current.x = e.clientX||e.touches[0].clientX;
-        current.y = e.clientY||e.touches[0].clientY;
-    }
-
-    function onMouseUp(e){
-        if (!drawing) { return; }
-        drawing = false;
-        drawLine(current.x, current.y, e.clientX||e.touches[0].clientX, e.clientY||e.touches[0].clientY, current.color, true);
-    }
-
-    function onMouseMove(e){
-        if (!drawing) { return; }
-        drawLine(current.x, current.y, e.clientX||e.touches[0].clientX, e.clientY||e.touches[0].clientY, current.color, true);
-        current.x = e.clientX||e.touches[0].clientX;
-        current.y = e.clientY||e.touches[0].clientY;
-    }
-
-    function onColorUpdate(e){
-        current.color = e.target.className.split(' ')[1];
-    }
-
-    function onDrawingEvent(data){
-        var w = canvas.width;
-        var h = canvas.height;
-        drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
-    }
-
-    // make the canvas fill its parent
-    function onResize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
     }
 
 })();

@@ -2,19 +2,239 @@
     box-sizing: border-box;
 }
 
-body {
-    width: 1200px;
-    height: 800px;
+*, html, body {
     margin: 0;
     padding: 0;
+}
+
+#game {
+    font-family: monospace;
+    font-size: 10px;
+    width: 1500px;
+    height: 900px;
     position: relative;
+    border: 1px solid black;
+}
+
+#board {
+    width: 882px;
+    height: 882px;
+    border: 1px solid black;
+}
+
+.zone {
+    height: 225px;
+    width: 600px;
+    position: absolute;
+    right: 0px;
+    opacity: .5;
+}
+
+.tile {
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
+    float: left;
+}
+
+.wide {
+    width: 720px;
+    border: none;
+    border-left: 1px solid black;
+    border-right: 1px solid black;;
+}
+
+.tile > span {
+    display: block;
+    text-align: center;
 }
 
 .card {
-    width: 80px;
-    height: 120px;
-    border: 2px solid black;
-    border-radius: 8px;
     position: absolute;
-    padding: 8px;
+    background-color: white;
+}
+
+.property {
+    width: 80px;
+    height: 130px;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.money {
+    width: 130px;
+    height: 80px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.money .value {
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 10px;
+    width: 80px;
+    text-align: center;
+}
+
+#dice, #chance, #vault {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.pawn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 5px solid black;
+}
+
+.house {
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    border-width: 2px;
+    background-color: red;
+}
+
+.hotel {
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    border-width: 2px;
+    background-color: green;
+}
+
+.selected {
+    border-color: gray;
+    z-index: 2;
+}
+
+h4 {
+    text-align: center;
+    height: 24px;
+}
+
+.property .name {
+    display: inline-block;
+}
+
+.property .price::before {
+    content: 'цена___';
+}
+
+.property .rent0::before {
+    content: 'наем___';
+}
+
+.property .rent1::before {
+    content: '1 къща_';
+}
+
+.property .rent2::before {
+    content: '2 къщи_';
+}
+
+.property .rent3::before {
+    content: '3 къщи_';
+}
+
+.property .rent4::before {
+    content: '4 къщи_';
+}
+
+.property .rent5::before {
+    content: 'хотел__';
+}
+
+.property .build::before {
+    content: 'строеж_';
+}
+
+.property .value {
+    float: right;
+    display: block;
+}
+
+.property .value::before {
+    content: '$';
+}
+
+/* COLORS */
+.brown {
+    background-color: sienna;
+}
+
+.blue {
+    background-color: dodgerblue;
+}
+
+.violet {
+    background-color: magenta;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.red {
+    background-color: red;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+.navy {
+    background-color: blue;
+}
+
+.gray {
+    background-color: gray;
+}
+
+.black {
+    background-color: black;
+    color: white;
+}
+
+.one {
+    background-color: white;
+}
+
+.five {
+    background-color: lightpink;
+}
+
+.ten {
+    background-color: lightskyblue;
+}
+
+.twenty {
+    background-color: greenyellow;
+}
+
+.fifty {
+    background-color: mediumorchid;
+}
+
+.hundred {
+    background-color: moccasin;
+}
+
+.fivehundred {
+    background-color: darkorange;
 }
